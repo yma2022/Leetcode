@@ -15,6 +15,6 @@ class Solution:
                 left += 1
                 right -= 1
         
-        print(left, right)
+        # print(left, right)
         return cnt
             

@@ -8,11 +8,12 @@ class Solution:
         while right < n:
             if s[right] in vowels:
                 count += 1
-            if right - left + 1 > k:
+            if right - left + 1 >= k:
+                ans = max(ans, count)
                 if s[left] in vowels:
                     count -= 1
                 left += 1
-            ans = max(ans, count)
+            
             right += 1
             
         return ans

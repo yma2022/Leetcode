@@ -1,5 +1,5 @@
 ## Sliding window
-
+![Categories of array related questions](/img/Array.png)
 ```
     # 用合适的数据结构记录窗口中的数据
     window = {}

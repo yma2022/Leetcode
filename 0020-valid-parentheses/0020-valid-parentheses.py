@@ -1,18 +1,17 @@
 class Solution:
     def isValid(self, s: str) -> bool:
-        # init stack
-        stack = list()
-        # dict of brackets
-        mapping = {")":"(", "]":"[", "}":"{"}
-        for ch in s:
-            # if right bracket in mapping, check if the stack has left bracket
-            if ch in mapping:
-                top_element = stack.pop() if stack else ''
-                
-                if mapping[ch] != top_element:
-                    return False
-            # if it is left bracket, store in stack
+        stack = []
+        
+        for item in s:
+            if item == '(':
+                stack.append(')')
+            elif item == '[':
+                stack.append(']')
+            elif item == '{':
+                stack.append('}')
+            elif not stack or stack[-1] != item:
+                return False
             else:
-                stack.append(ch)
-        # return true if not stack    
-        return not stack
+                stack.pop()
+        
+        return True if not stack else False

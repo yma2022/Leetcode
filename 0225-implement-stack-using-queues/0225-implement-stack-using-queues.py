@@ -1,7 +1,7 @@
 class MyStack:
 
     def __init__(self):
-        self.queue_in = []
+        self.queue_in = deque()
         
         
 
@@ -10,7 +10,11 @@ class MyStack:
         
 
     def pop(self) -> int:
-        return self.queue_in.pop()
+        if self.empty():
+            return None
+        for i in range(len(self.queue_in)-1):
+            self.queue_in.append(self.queue_in.popleft())
+        return self.queue_in.popleft()
         
 
     def top(self) -> int:

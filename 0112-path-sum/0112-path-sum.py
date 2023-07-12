@@ -5,25 +5,12 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def traversal(self, node, sum):
-        if not node.left and not node.right and sum == 0:
-            return True
-        if not node.left and not node.right:
-            return False
-        if node.left:
-            sum -= node.left.val
-            if self.traversal(node.left, sum):
-                return True
-            sum += node.left.val
-        if node.right:
-            sum -= node.right.val
-            if self.traversal(node.right, sum):
-                return True
-            sum += node.right.val
-            
-        return False
     def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
         if not root:
-            return False           
-        return self.traversal(root, targetSum - root.val)
+            return False
+        if not root.left and not root.right and targetSum == root.val:
+            return True
+        left = self.hasPathSum(root.left, targetSum - root.val)
+        right = self.hasPathSum(root.right, targetSum - root.val)
+        return left or right
         

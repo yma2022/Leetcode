@@ -8,15 +8,11 @@ class Solution:
     def sumOfLeftLeaves(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
-        def process(subtree, is_left):
-            if not subtree.left and not subtree.right:
-                return subtree.val if is_left else 0
-            
-            total = 0
-            if subtree.left:
-                total += process(subtree.left, True)
-            if subtree.right:
-                total += process(subtree.right, False)
-            return total
-        return process(root, False)
+        if not root.left and not root.right:
+            return 0
+        left = self.sumOfLeftLeaves(root.left)
+        if root.left and not root.left.left and not root.left.right:
+            left = root.left.val
+        right = self.sumOfLeftLeaves(root.right)
+        return left + right
         

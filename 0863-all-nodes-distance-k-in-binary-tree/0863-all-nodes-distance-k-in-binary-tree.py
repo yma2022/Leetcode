@@ -14,17 +14,16 @@ class Solution:
                 return
             if parent and child:
                 graph[parent.val].append(child.val)
-                graph[child.val] .append(parent.val)
-                
+                graph[child.val].append(parent.val)
             dfs(child, child.left)
             dfs(child, child.right)
             return
-            
-        dfs(None, root)
         
+        dfs(None, root)
         queue = deque([target.val])
         visited = set()
         visited.add(target.val)
+        
         while k:
             for i in range(len(queue)):
                 parent = queue.popleft()

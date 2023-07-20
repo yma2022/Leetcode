@@ -3,19 +3,21 @@ class Solution:
         row,col = len(A),len(A[0])
         dirs = [(0,0),(-1,0),(0,-1),(1,0),(0,1)]
         island1 = collections.deque()
-        def dfs(x,y):
+        
+        def dfs(x, y):
             for dx, dy in dirs:
-                if 0<=x+dx<row and 0<=y+dy<col and A[x+dx][y+dy]==1:
-                    A[x+dx][y+dy]=2
-                    island1.append([x+dx,y+dy])
-                    dfs(x+dx,y+dy)
-        #DFS Find the first island and turn all 1 to 2
-        def findIsland1():
-            for x in range(row):
-                for y in range(col):
-                    if A[x][y]:
-                        return dfs(x,y)
-        findIsland1()
+                nx, ny = x+dx, y+dy
+                if 0<=nx<row and 0<=ny<col and A[nx][ny]==1:
+                    A[nx][ny] = 2
+                    island1.append([nx,ny])
+                    dfs(nx,ny)
+        
+        for i in range(row):
+            for j in range(col):
+                if A[i][j] == 1:
+                    first_x, first_y = i, j
+                    break
+        dfs(first_x,first_y)            
         #BFS Expand the island and count step
         step = 0
         while island1:

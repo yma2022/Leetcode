@@ -8,12 +8,11 @@ class Solution:
             #     stack.append(i)
             # # 情况三
             # else:
-            if nums2[i] > nums2[stack[-1]]:
-                while len(stack)!=0 and nums2[i]>nums2[stack[-1]]:
-                    if nums2[stack[-1]] in nums1:
-                        index = nums1.index(nums2[stack[-1]])
-                        result[index]=nums2[i]
-                    stack.pop()                 
+            while len(stack)!=0 and nums2[i]>nums2[stack[-1]]:
+                if nums2[stack[-1]] in nums1:
+                    index = nums1.index(nums2[stack[-1]])
+                    result[index]=nums2[i]
+                stack.pop()                 
             stack.append(i)
         return result
             

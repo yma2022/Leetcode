@@ -22,7 +22,7 @@ class Solution:
                     break
         dfs(first_x, first_y)
         length = 0
-        print(island1)
+        # print(island1)
         while island1:
             for _ in range(len(island1)):
                 x,y=island1.popleft()

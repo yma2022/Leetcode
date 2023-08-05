@@ -1,32 +1,25 @@
-class Solution:
-    def __init__(self):
-        self.directions = [
-            [0,1],
-            [1,0],
-            [-1,0],
-            [0,-1]
-        ]
-    def dfs(self,grid, visited, x, y):
-        for i in range(4):
-            next_x = x + self.directions[i][0]
-            next_y = y + self.directions[i][1]
-            
-            if 0 <= next_x < len(grid) and 0 <= next_y < len(grid[0]):
-                if not visited[next_x][next_y] and grid[next_x][next_y] == '1':
-                    visited[next_x][next_y] = True
-                    self.dfs(grid, visited, next_x, next_y)
-                    
+class Solution:                    
     def numIslands(self, grid: List[List[str]]) -> int:
-        cols = len(grid)
-        rows = len(grid[0])
-        visited = [[False for _ in range(rows)] for _ in range(cols)]
-        res = 0
-        # print(visited, grid)
-        for i in range(cols):
-            for j in range(rows):
-                if not visited[i][j] and grid[i][j] == '1':
-                    visited[i][j] = True
-                    res += 1
-                    self.dfs(grid, visited, i, j)
-        return res
+        rows = len(grid)
+        cols = len(grid[0])
+        visited = [[False for _ in range(cols)] for _ in range(rows)]
+        
+        count = 0
+        dirs = [[0,1],[0,-1],[1,0],[-1,0]]
+        
+        def dfs(x,y):
+            for d in dirs:
+                nx = x + d[0]
+                ny = y + d[1]
+                if 0 <= nx < rows and 0 <= ny < cols:
+                    if not visited[nx][ny] and grid[nx][ny] == "1":
+                        visited[nx][ny] = True
+                        dfs(nx, ny)
+                        
+        for i in range(rows):
+            for j in range(cols):
+                if not visited[i][j] and grid[i][j] == "1":
+                    dfs(i, j)
+                    count += 1
+        return count
         

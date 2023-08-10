@@ -4,14 +4,13 @@ class Solution:
         
         while left < right:
             mid = (left + right) // 2
-            actual_trips = 0
-            
+            total = 0
             for t in time:
-                actual_trips += mid // t
-            
-            if actual_trips >= totalTrips:
+                total += mid // t
+                
+            if total >= totalTrips:
                 right = mid
             else:
                 left = mid + 1
+                
         return left
-        

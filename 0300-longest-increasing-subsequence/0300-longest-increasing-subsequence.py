@@ -4,8 +4,7 @@ class Solution:
             left, right = 0, len(sub) - 1            
             while left < right:
                 mid = (left + right) // 2
-                if sub[mid] == num:
-                    return mid
+                
                 if sub[mid] < num:
                     left = mid + 1
                 else:

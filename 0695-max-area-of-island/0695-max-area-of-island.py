@@ -1,13 +1,5 @@
 class Solution:
-    def __init__(self):
-        self.area = 0
-        self.directions = [
-            [0,1],
-            [1,0],
-            [-1,0],
-            [0,-1]
-        ]
-
+    area = 0
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
         # DFS
         if not grid: return 0
@@ -20,10 +12,9 @@ class Solution:
                 return
             visited[x][y] = True
             self.area += 1
-            for d in self.directions:
+            for d in [[0,1], [0,-1], [1,0], [-1,0]]:
                 next_x = x + d[0]
                 next_y = y + d[1]
-
                 if 0 <= next_x < len(grid) and 0 <= next_y < len(grid[0]):
                     if not visited[next_x][next_y] and grid[next_x][next_y] == 1:
                         dfs(next_x, next_y)

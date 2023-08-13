@@ -17,5 +17,4 @@ class Solution:
             
         dfs(root)
         
-        srt = sorted(n.val for n in self.temp)
-        return srt[k - 1]
+        return self.temp[k-1].val

@@ -8,14 +8,14 @@ class Solution:
         dummyHead = ListNode()
         dummyHead.next = head
         curr = dummyHead
-        while curr and curr.next and curr.next.next:
-            temp = curr.next # 防止节点修改
-            temp1 = curr.next.next.next
-            
+        while curr.next and curr.next.next:
+            dst = curr.next.next.next
+            src = curr.next
             curr.next = curr.next.next
-            curr.next.next = temp
-            temp.next = temp1
+            curr.next.next = src
+            src.next = dst
             curr = curr.next.next
         return dummyHead.next
+            
             
         

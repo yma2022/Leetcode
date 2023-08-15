@@ -11,8 +11,8 @@ class Solution:
         dist = [float('inf') for _ in range(n)]
         while q and stops <= k:
             length = len(q)
-            while length :
-                length -= 1
+            for _ in range(length):
+                
                 node, d = q.popleft()
                 for nei, price in graph[node]:
                     if price + d < dist[nei]:

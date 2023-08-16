@@ -37,7 +37,7 @@ class Solution:
 
     def findRedundantConnection(self, edges: List[List[int]]) -> List[int]:
         for i in range(len(edges)):
-            if self.same(edges[i][0], edges[i][1]) :
+            if self.find(edges[i][0]) == self.find(edges[i][1]) :
                 return edges[i]
             else :
                 self.join(edges[i][0], edges[i][1])

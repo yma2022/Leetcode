@@ -17,11 +17,10 @@ class Solution:
         q.append(root)
         
         while q:
-            start = 0
-            end = len(q) - 1
+            length = len(q)
             prev = None
-            for i in range(len(q)):
-                curr = q.popleft()
+            for _ in range(length):
+                curr = q.popleft()                
                 if prev:
                     prev.next = curr
                 prev = curr
@@ -29,6 +28,5 @@ class Solution:
                     q.append(curr.left)
                 if curr.right:
                     q.append(curr.right)
-            
         return root
         

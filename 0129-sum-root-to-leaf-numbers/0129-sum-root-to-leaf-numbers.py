@@ -11,7 +11,6 @@ class Solution:
                 return None
             if not root.left and not root.right:
                 arr.append(res+root.val)
-                print(arr)
                 return
             dfs(root.left, (res+root.val)*10)
             dfs(root.right, (res+root.val)*10)

@@ -24,14 +24,13 @@ class Solution:
         visited = set()
         count = 0
         def dfs(city, visited):
+            visited.add(city)
             for new_city, is_friend in enumerate(M[city]):
-                if new_city not in visited and is_friend:
-                    visited.add(new_city)
+                if new_city not in visited and is_friend:                    
                     dfs(new_city, visited)
                     
         for city in range(len(M)):
             if city not in visited:
-                visited.add(city)
                 count+=1
                 dfs(city, visited)
         return count

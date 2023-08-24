@@ -17,4 +17,6 @@ class Solution:
             return self.fib(n-1) + d[n-2]
         if n - 1 in d and n - 2 not in d:
             return self.fib(n-1) + d[n-1]
-        return self.fib(n-1) + self.fib(n-2)
+        res = self.fib(n-1) + self.fib(n-2)
+        d[n] = res
+        return res

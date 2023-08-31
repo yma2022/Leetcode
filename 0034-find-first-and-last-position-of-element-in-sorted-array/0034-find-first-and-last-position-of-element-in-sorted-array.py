@@ -13,13 +13,18 @@ class Solution:
         
         def findRight(nums, val):
             left, right = 0, len(nums) - 1
-            while left <= right:
+            if nums[right] == val:
+                return right
+            while left < right:
                 mid = (left + right) // 2
                 if nums[mid] <= val:
                     left = mid + 1
                 else:
-                    right = mid - 1 
-            return right if nums[right] == val else -1
+                    right = mid
+            if nums[right - 1] == val:
+                return right - 1
+            else:
+                return -1
         
         if not nums or target > nums[-1] or target < nums[0]:
             return [-1, -1]

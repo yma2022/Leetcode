@@ -5,7 +5,7 @@ class MedianFinder:
         self.high = []
 
     def addNum(self, num: int) -> None:
-        heapq.heappush(self.low, num)
+        heapq.heappush(self.low, -num)
         heapq.heappush(self.high, -self.low[0])
         heapq.heappop(self.low)
         
@@ -16,7 +16,7 @@ class MedianFinder:
         
 
     def findMedian(self) -> float:
-        return float(self.low[0]) if len(self.low) > len(self.high) else (self.low[0] - self.high[0]) / 2
+        return float(- self.low[0]) if len(self.low) > len(self.high) else (- self.low[0] + self.high[0]) / 2
         
         
 

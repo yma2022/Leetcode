@@ -3,7 +3,6 @@ class Solution:
         dp = [1] * n
         
         for i in range(1,m):
-            print(dp)
             for j in range(1,n):
                 dp[j] += dp[j - 1]
                 

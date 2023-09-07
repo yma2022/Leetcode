@@ -22,9 +22,8 @@ class Solution:
             curr.next = prev
             prev = curr
             curr = next
-            index += 1
-
-        reverse_start.next.next = curr
+            index += 1  
+        reverse_start.next.next = curr 
         reverse_start.next = prev
         
         return dummyHead.next

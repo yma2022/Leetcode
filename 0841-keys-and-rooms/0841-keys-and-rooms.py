@@ -9,7 +9,7 @@ class Solution:
                     dfs(nei)
         
         dfs(0)
-        print(seen)
+        # print(seen)
         return all(seen)
             
             

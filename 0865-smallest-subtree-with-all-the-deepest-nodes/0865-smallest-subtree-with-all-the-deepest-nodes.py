@@ -6,28 +6,29 @@
 #         self.right = right
 class Solution:
     def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
-        leafs = self.bfs(root)
-        return self.LCA(root, leafs)
         
-    def bfs(self, node):
-        q = [node]
+        leaves = self.bfs(root)
+        return self.LCA(root, leaves)        
+       
+    def bfs(self, root):
+        q = deque([root])
         while q:
             level = []
-            for i in range(len(q)):
-                node = q.pop(0)
+            for _ in range(len(q)):
+                node = q.popleft()
                 if node.left:
                     q.append(node.left)
                 if node.right:
                     q.append(node.right)
                 level.append(node)
             if not q:
-                return level #return a list
+                return level
         
         
     def LCA(self, root, nodes): #nodes going to be list of deepest nodes
+        
         if not root:
             return None
-        
         if root in nodes:
             return root
         
@@ -36,7 +37,5 @@ class Solution:
         
         if left and right:
             return root
-        
         else:
             return left or right
-        

@@ -3,25 +3,25 @@ class Solution:
         if numRows == 1:
             return s
         
-        ans = ""
-        n = len(s)
-        chars_in_section = 2 * (numRows - 1)
+        res = [""] * numRows
+        curr = -1
+        signal = 1
         
-        for cur in range(numRows):
-            index = cur
-            while index < n:
-                ans += s[index]
-                
-                if cur != 0 and cur != numRows - 1:
-                    chars_in_between = chars_in_section - 2 * cur
-                    second_index = index + chars_in_between
+        for i in range(len(s)):
+            if signal == 1:
+                curr += 1
+                res[curr] += s[i]
+                if curr == numRows - 1:
+                    signal = -1
+            elif signal == -1:
+                curr -=1
+                res[curr] += s[i]
+                if curr == 0:
+                    signal = 1
                     
-                    if second_index < n:
-                        ans += s[second_index]
-                        
-                index += chars_in_section
+        print(res)    
+        return "".join(res)
                 
-        return ans
         
         
         

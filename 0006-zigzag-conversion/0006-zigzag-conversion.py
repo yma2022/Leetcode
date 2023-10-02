@@ -19,7 +19,7 @@ class Solution:
                 if curr == 0:
                     signal = 1
                     
-        print(res)    
+        # print(res)    
         return "".join(res)
                 
         

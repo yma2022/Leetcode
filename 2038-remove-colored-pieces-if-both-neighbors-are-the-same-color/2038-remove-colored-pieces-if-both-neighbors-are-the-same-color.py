@@ -9,18 +9,13 @@ class Solution:
             if colors[i] == curr:
                 length += 1
             if colors[i] != curr or i == len(colors) - 1:
-                d[curr].append(length)
+                if length >= 3:
+                    d[curr].append(length)
                 curr = colors[i]
                 length = 1
             i += 1
-        opA, opB = 0, 0
-        for l in d["A"]:
-            if l >= 3:
-                opA += l - 2
-        for k in d["B"]:
-            if k >= 3:
-                opB += k - 2
-        # print(d)
+        opA = sum(d["A"]) - 2 * len(d["A"])
+        opB = sum(d["B"]) - 2 * len(d["B"])
         return opA > opB
             
         

@@ -1,7 +1,7 @@
 class Solution:
     def winnerOfGame(self, colors: str) -> bool:
         d = collections.defaultdict(int)
-        curr = colors[0]
+        curr = None
         length = 0
         i = 0
         while i < len(colors):

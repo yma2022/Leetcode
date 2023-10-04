@@ -1,16 +1,17 @@
 class Solution:
     def combinationSum3(self, k: int, n: int) -> List[List[int]]:
-        result = []  # 存放结果集
-        self.backtracking(k, n, 1, [], result)
-        return result
-        
-    def backtracking(self, k, n, startIndex, path, result):
-        if len(path) == k and sum(path) == n:
-            result.append(path[:])
-            return
-        for i in range(startIndex, 10):  # 需要优化的地方
-            path.append(i)  # 处理节点
-            self.backtracking(k, n, i + 1, path, result)
-            path.pop()  # 回溯，撤销处理的节点
-            
+        def backtrack(curr, path, results):
+            if sum(path) > n:
+                return
+            if len(path) == k:
+                if sum(path) == n:
+                    results.append(path[:])
+                return
+            for i in range(curr, 11-(k-len(path))):
+                path.append(i)
+                backtrack(i+1, path, results)
+                path.pop()
+        results = []
+        backtrack(1, [], results)
+        return results
         

@@ -3,7 +3,8 @@ class Solution:
         def backtrack(curr, path, results):
             if len(path) == k:
                 results.append(path[:])
-            for i in range(curr,n+1):
+                return
+            for i in range(curr,n+2-(k-len(path))):
                 path.append(i)
                 backtrack(i+1, path, results)
                 path.pop()

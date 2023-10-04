@@ -1,12 +1,13 @@
 class Solution:
     def combine(self, n: int, k: int) -> List[List[int]]:
-        def backtrack(n, k, startIndex, path):
+        def backtrack(curr, path, results):
             if len(path) == k:
-                res.append(path[:])
-            for i in range(startIndex, n + 1):
+                results.append(path[:])
+            for i in range(curr,n+1):
                 path.append(i)
-                backtrack(n, k, i + 1, path)
+                backtrack(i+1, path, results)
                 path.pop()
-        res = []
-        backtrack(n, k, 1, [])
-        return res
+        results = []
+        backtrack(1, [], results)
+        return results
+        

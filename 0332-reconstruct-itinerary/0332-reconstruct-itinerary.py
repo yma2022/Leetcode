@@ -1,44 +1,18 @@
 class Solution:
-    def findItinerary(self, tickets: List[List[str]]) -> List[str]:
-        """
-        :type tickets: List[List[str]]
-        :rtype: List[str]
-        """
-        from collections import defaultdict
-        self.flightMap = defaultdict(list)
-
+    def findItinerary(self, tickets):
+        targets = defaultdict(list)  # 创建默认字典，用于存储机场映射关系
         for ticket in tickets:
-            origin, dest = ticket[0], ticket[1]
-            self.flightMap[origin].append(dest)
-
-        self.visitBitmap = {}
-
-        # sort the itinerary based on the lexical order
-        for origin, itinerary in self.flightMap.items():
-        # Note that we could have multiple identical flights, i.e. same origin and destination.
-            itinerary.sort()
-            self.visitBitmap[origin] = [False]*len(itinerary)
-
-        self.flights = len(tickets)
-        self.result = []
-        route = ['JFK']
-        self.backtracking('JFK', route)
-
-        return self.result
-
-
-    def backtracking(self, origin, route):
-        if len(route) == self.flights + 1:
-            self.result = route
-            return True
-
-        for i, nextDest in enumerate(self.flightMap[origin]):
-            if not self.visitBitmap[origin][i]:
-                # mark the visit before the next recursion
-                self.visitBitmap[origin][i] = True
-                ret = self.backtracking(nextDest, route + [nextDest])
-                self.visitBitmap[origin][i] = False
-                if ret:
-                    return True
-
-        return False
+            targets[ticket[0]].append(ticket[1])  # 将机票输入到字典中
+        
+        for key in targets:
+            targets[key].sort(reverse=True)  # 对到达机场列表进行字母逆序排序
+        
+        result = []
+        self.backtracking("JFK", targets, result)  # 调用回溯函数开始搜索路径
+        return result[::-1]  # 返回逆序的行程路径
+    
+    def backtracking(self, airport, targets, result):
+        while targets[airport]:  # 当机场还有可到达的机场时
+            next_airport = targets[airport].pop()  # 弹出下一个机场
+            self.backtracking(next_airport, targets, result)  # 递归调用回溯函数进行深度优先搜索
+        result.append(airport)  # 将当前机场添加到行程路径中

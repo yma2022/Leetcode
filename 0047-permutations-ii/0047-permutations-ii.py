@@ -1,17 +1,20 @@
 class Solution:
     def permuteUnique(self, nums: List[int]) -> List[List[int]]:
-        def btrack(path, counter):
-            if len(path)==len(nums):
-                ans.append(path[:])
-            for x in counter:  # dont pick duplicates
-                if counter[x] > 0:
-                    path.append(x)
-                    counter[x] -= 1
-                    btrack(path, counter)
-                    path.pop()
-                    counter[x] += 1
-        ans = []
-        btrack([], Counter(nums))
-        return ans
-                
+        def backtrack(seen, path, res):
+            if len(path) == len(nums):
+                res.append(path[:])
+                return
+            for i, num in enumerate(nums):
+                if i > 0 and num == nums[i-1] and not seen[i-1] or seen[i]:
+                    continue
+                seen[i] = True
+                path.append(num)
+                backtrack(seen, path, res)
+                path.pop()
+                seen[i] = False
         
+        path, results = [], []
+        seen = [False] * len(nums)
+        nums.sort()
+        backtrack(seen, path, results)
+        return results

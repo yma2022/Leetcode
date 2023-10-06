@@ -7,14 +7,14 @@ public:
             return result;
         }
         for (int i = 0; i < nums.size() - 3; i++){
-            if (nums[i] >= target && nums[i] > 0){
+            if (nums[i] > target && nums[i] >= 0){
                 break;
             }
             if (i > 0 && nums[i] == nums[i - 1]){
                 continue;
             }
             for (int j = i+1; j < nums.size() - 2; j++){
-                if (nums[i] + nums[j] >= target && nums[i] + nums[j] > 0){
+                if (nums[i] + nums[j] > target && nums[i] + nums[j] >= 0){
                     break;
                 }
                 if (j > i+1 && nums[j] == nums[j - 1]){

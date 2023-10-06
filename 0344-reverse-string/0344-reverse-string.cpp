@@ -5,6 +5,5 @@ public:
         while (left < right){
             swap(s[left++], s[right--]);
         }
-        return;
     }
 };

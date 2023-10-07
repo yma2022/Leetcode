@@ -6,7 +6,7 @@ public:
         
         while (left <= right){
             while (left <= right && nums[right] == val) --right;
-            while (left <= right && nums[left] != val) ++left;
+            while (left <= right && nums[left] != val) left++;
             if (left < right){
                 nums[left] = nums[right];
                 left++;

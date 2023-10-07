@@ -11,22 +11,15 @@
  */
 class Solution {
 public:
-    bool isValidBST(TreeNode* root, long long minSoFar, long long maxSoFar) {
-        if (!root) {
-            return true;
-        }
-
-        if (root->val <= minSoFar) {
-            return false;
-        }
-
-        if (root->val >= maxSoFar) {
-            return false;
-        }
-
-        return isValidBST(root->left, minSoFar, root->val) && isValidBST(root->right, root->val, maxSoFar);
-    }
+    TreeNode* pre = NULL; // 用来记录前一个节点
     bool isValidBST(TreeNode* root) {
-        return isValidBST(root, LONG_MIN, LONG_MAX);
+        if (root == NULL) return true;
+        bool left = isValidBST(root->left);
+
+        if (pre != NULL && pre->val >= root->val) return false;
+        pre = root; // 记录前一个节点
+
+        bool right = isValidBST(root->right);
+        return left && right;
     }
 };

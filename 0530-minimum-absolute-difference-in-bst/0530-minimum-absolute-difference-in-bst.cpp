@@ -11,26 +11,27 @@
  */
 class Solution {
 public:
-    int minDifference = INT_MAX;
-    // Initially, it will be null.
-    TreeNode* prevNode;
-        
-    void inorderTraversal(TreeNode* node) {
-        if (node == NULL) {
+    int ans = INT_MAX;
+    TreeNode *prev = NULL;
+    void inorder(TreeNode *root) 
+    {
+        if(root==NULL)
+        {
             return;
         }
-        
-        inorderTraversal(node->left);
-        // Find the difference with the previous value if it is there.
-        if (prevNode != NULL) {
-            minDifference = min(minDifference, node->val - prevNode->val);
+        inorder(root->left);
+        // if we find at least a node before, we update diff
+        if (prev!=NULL)
+        {
+            int diff = root->val - prev->val;
+            ans = min(diff,ans);
         }
-        prevNode = node;
-        inorderTraversal(node->right);
+        prev = root;
+        inorder(root->right);
     }
-    
-    int getMinimumDifference(TreeNode* root) {
-        inorderTraversal(root);
-        return minDifference;
+    int getMinimumDifference(TreeNode *root) 
+    {
+        inorder(root);
+        return ans;
     }
 };

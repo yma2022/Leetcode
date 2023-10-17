@@ -1,35 +1,32 @@
-class UnionFind:
-    def __init__(self, n):
-        self.components = n
-        self.parents = list(range(n))
-        
-    def union(self, parent, child):
-        parent_parent = self.find(parent)
-        child_parent = self.find(child)
-        
-        if child_parent != child or parent_parent == child_parent:
-            return False
-        
-        self.components -= 1
-        self.parents[child_parent] = parent_parent
-        return True
-
-    def find(self, node):
-        if self.parents[node] != node:
-            self.parents[node] = self.find(self.parents[node])
-        
-        return self.parents[node]
+class UnionFind():
+    def __init__(self, size):
+        self.parents = [i for i in range(size)]
+    def find(self, u):
+        if self.parents[u] == u:
+            return u
+        self.parents[u] = self.find(self.parents[u])
+        return self.parents[u]
+    
+    def union(self, u, v):
+        u_parent = self.find(u)
+        v_parent = self.find(v)
+        if u_parent != v_parent:
+            self.parents[v] = u_parent
 
 class Solution:
     def validateBinaryTreeNodes(self, n: int, leftChild: List[int], rightChild: List[int]) -> bool:
         uf = UnionFind(n)
-        for node in range(n):
-            for child in [leftChild[node], rightChild[node]]:
+        components = n
+        for i in range(n):
+            lc = leftChild[i]
+            rc = rightChild[i]
+            for child in [lc, rc]:
                 if child == -1:
                     continue
-
-                if not uf.union(node, child):
+                if uf.find(child) == uf.find(i) or uf.find(child) != child:
                     return False
-                
-        return uf.components == 1
+                uf.union(i, child)
+                components -= 1
+        return components == 1
+            
         

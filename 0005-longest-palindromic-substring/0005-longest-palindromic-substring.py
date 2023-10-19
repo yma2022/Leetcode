@@ -1,22 +1,17 @@
 class Solution:
-   
-    def expandAroundCenter(self, s, left, right):
-        # check palindrome from a substring s[left:right+1]
-        while left>=0 and right<len(s) and (s[left] == s[right]):
-            left -= 1
-            right += 1
-        return left + 1, right - 1
-    
     def longestPalindrome(self, s: str) -> str:
-        start, end = 0, 0
+        def expansion(s, left, right):
+            while left>=0 and right < len(s) and s[left] == s[right]:
+                left -= 1
+                right += 1
+            return s[left+1:right]
+        ans = ""
         for i in range(len(s)):
-            # start with two possible minimal palindrome
-            left1, right1 = self.expandAroundCenter(s, i, i)
-            left2, right2 = self.expandAroundCenter(s, i, i+1)
-            # pick the longest string from the two results
-            if right1 -left1 > end - start:
-                start, end = left1, right1
-            if right2 - left2 > end -start:
-                start, end = left2, right2
+            s1 = expansion(s, i, i)
+            s2 = expansion(s, i, i+1)
+            ans = s1 if len(s1) > len(ans) else ans
+            ans = s2 if len(s2) > len(ans) else ans
             
-        return s[start: end+1]
+        return ans
+            
+        

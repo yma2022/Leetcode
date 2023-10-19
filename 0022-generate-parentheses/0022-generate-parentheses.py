@@ -1,8 +1,13 @@
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
-        dp = [[] for _ in range(n + 1)]
-        dp[0].append('')
-        for i in range(n + 1):
-            for j in range(i):
-                dp[i] += ['(' + x + ')' + y for x in dp[j] for y in dp[i - j - 1]]
-        return dp[n]
+        def dfs(leftRemain, rightRemain, path, results):
+            if leftRemain > rightRemain or leftRemain < 0 or rightRemain < 0:
+                return
+            if leftRemain == 0 and rightRemain == 0:
+                results.append(path[:])
+                return
+            dfs(leftRemain-1, rightRemain, path+"(", results)
+            dfs(leftRemain, rightRemain-1, path+")", results)
+        res = []
+        dfs(n, n, "", res)
+        return res

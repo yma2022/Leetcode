@@ -1,15 +1,18 @@
 class Solution:
     def reverse(self, x: int) -> int:
-        rev = 0
-        INTMAX = 2**31 - 1
-        INTMIN = -2**31
+        INT_MAX = 2**31 - 1
+        INT_MIN = -2**31
+        ans = 0
         val = abs(x)
-        while val:
+        while val > 0:
             pop = val % 10
-            val = val // 10
-            if rev > INTMAX / 10 or (rev == INTMAX / 10 and pop > 7):
+            val //= 10
+            if x > 0 and (ans > INT_MAX / 10 or (ans == INT_MAX // 10 and pop > 7)):
                 return 0
-            if rev < INTMIN or (rev == INTMIN / 10 and pop < -8):
+            if x < 0 and (ans > -INT_MIN / 10 or (ans == -INT_MIN // 10 and pop > 8)):
+                #print(ans)
                 return 0
-            rev = rev*10 + pop
-        return rev if x>0 else -rev
+            
+            ans = ans * 10 + pop
+        return ans if x > 0 else -ans
+        

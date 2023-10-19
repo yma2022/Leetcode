@@ -1,26 +1,27 @@
 class Solution:
     def myAtoi(self, s: str) -> int:
-        ans = ""
-        ops = None
-        for ch in s:
-            if ch == " " and not ans and not ops:
-                continue
-            if not ch.isdigit() and ch not in ["-", "+"]:
-                break
-            if ch in ["-", "+"]:
-                if ops or ans:
-                    break
-                else:
-                    ops = ch
-            if ch.isdigit():
-                ans += ch
-        if not ans:
+        if not s:
             return 0
-        ans = -int(ans) if ops == "-" else int(ans)
-        if ans < -2**31:
-            return -2**31
-        elif ans > 2**31 - 1:
-            return 2**31 - 1
-        else:
-            return ans
+        INT_MAX = 2**31 - 1
+        INT_MIN = -2**31
+        ans = 0
+        signal = None
+        i = 0
+        while i < len(s) and s[i] == " ":
+            i += 1
+            
+        if i < len(s) and s[i] in ["+", "-"]:
+            signal = s[i]
+            i += 1
         
+        while i < len(s) and s[i].isdigit():
+            # print(signal, ans, s[i])
+            if signal == "-" and (ans > -INT_MIN / 10 or (ans == -INT_MIN // 10 and int(s[i]) > 8)):
+                return INT_MIN
+            if signal != "-" and (ans > INT_MAX / 10 or (ans == INT_MAX // 10 and int(s[i]) > 7)):
+                return INT_MAX
+            ans = ans*10 + int(s[i])
+            i += 1
+                
+        return -ans if signal == "-" else ans
+            

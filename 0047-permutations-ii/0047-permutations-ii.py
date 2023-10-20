@@ -6,8 +6,6 @@ class Solution:
                 results.append(path[:])
                 return
             for i in range(n):
-                if i in seen:
-                    continue
                 if i > 0 and nums[i] == nums[i-1] and (i-1) not in seen or i in seen:
                     continue
                 seen.add(i)

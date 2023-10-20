@@ -4,8 +4,6 @@ class Solution:
         for s in strs:
             key = "".join(sorted(s))
             d[key].append(s)
-        res = []
-        for k in d:
-            res.append(d[k])
-        return res
+            
+        return [d[key] for key in d]
         

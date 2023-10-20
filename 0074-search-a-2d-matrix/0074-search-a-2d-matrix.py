@@ -1,24 +1,18 @@
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        if target > matrix[-1][-1] or target < matrix[0][0]:
+            return False
         m = len(matrix)
         n = len(matrix[0])
-        left, right = 0, m * n - 1
+        l, r = 0, m * n - 1
         
-        def getIndex(n, col):
-            if n % col == 0:
-                i = n // col - 1
+        while l <= r:
+            mid = (l + r) // 2
+            x, y = mid // n, mid - (mid // n) * n
+            if matrix[x][y] >= target:
+                r = mid - 1
             else:
-                i = n // col
-            j = n - i * col - 1
-            return (i, j)
+                l = mid + 1
+        x, y = l // n, l - (l // n) * n
+        return matrix[x][y] == target
         
-        while left < right:
-            mid = (left + right) // 2
-            i, j = getIndex(mid+1, n)
-            if matrix[i][j] < target:
-                left = mid + 1
-            else:
-                right = mid
-                
-        i_final, j_final = getIndex(left+1, n)
-        return matrix[i_final][j_final] == target

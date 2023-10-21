@@ -1,9 +1,6 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> bool:
         n = len(nums)
-        if n == 0:
-            return False
-
         left, right = 0, n - 1
         while left < right:
             mid = left + (right - left) // 2
@@ -25,3 +22,5 @@ class Solution:
                     left = left + 1
 
         return nums[left] == target
+
+        

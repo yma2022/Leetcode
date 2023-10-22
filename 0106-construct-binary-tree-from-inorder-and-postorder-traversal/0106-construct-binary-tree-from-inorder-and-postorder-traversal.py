@@ -8,19 +8,16 @@ class Solution:
     def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
         if not postorder:
             return None
+        root = TreeNode(postorder[-1])
         
-        root_val = postorder[-1]
-        root = TreeNode(root_val)
+        sep_idx = inorder.index(postorder[-1])
         
-        separation_idx = inorder.index(root_val)
+        in_left = inorder[:sep_idx]
+        in_right = inorder[sep_idx+1:]
         
-        inorder_left = inorder[:separation_idx]
-        inorder_right = inorder[separation_idx+1:]
+        post_left = postorder[:len(in_left)]
+        post_right = postorder[len(in_left):len(postorder)-1]
         
-        postorder_left = postorder[:len(inorder_left)]
-        postorder_right = postorder[len(inorder_left): len(postorder) - 1]
-        
-        root.left = self.buildTree(inorder_left, postorder_left)
-        root.right = self.buildTree(inorder_right, postorder_right)
-        
+        root.left = self.buildTree(in_left, post_left)
+        root.right = self.buildTree(in_right, post_right)
         return root

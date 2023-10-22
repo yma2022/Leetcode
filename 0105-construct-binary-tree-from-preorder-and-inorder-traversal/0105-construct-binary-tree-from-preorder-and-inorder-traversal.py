@@ -8,19 +8,19 @@ class Solution:
     def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
         if not preorder:
             return None
+        root = TreeNode(preorder[0])
         
-        root_val = preorder[0]
-        root = TreeNode(root_val)
+        sep_idx = inorder.index(preorder[0])
         
-        separation_idx = inorder.index(root_val)
+        in_left = inorder[:sep_idx]
+        in_right = inorder[sep_idx+1:]
         
-        inorder_left = inorder[:separation_idx]
-        inorder_right = inorder[separation_idx+1:]
+        pre_left = preorder[1:len(in_left)+1]
+        pre_right = preorder[len(in_left)+1:]
         
-        preorder_left = preorder[1:len(inorder_left)+1]
-        preorder_right = preorder[len(inorder_left)+1:]
-        
-        root.left = self.buildTree(preorder_left, inorder_left)
-        root.right = self.buildTree(preorder_right, inorder_right)
+        root.left = self.buildTree(pre_left, in_left)
+        root.right = self.buildTree(pre_right, in_right)
         
         return root
+        
+        

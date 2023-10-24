@@ -10,9 +10,10 @@ class Solution:
         
         for i in range(rows):
             for j in range(cols):
-                if board[i][j] == "O":
-                    o_set.add((i, j))
-                    board[i][j] = "X"
+                if board[i][j] != "O":
+                    continue
+                o_set.add((i, j))
+                board[i][j] = "X"
                     
         def dfs(x, y):
             nonlocal seen

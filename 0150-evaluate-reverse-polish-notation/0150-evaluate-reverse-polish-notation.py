@@ -1,12 +1,23 @@
 class Solution:
     def evalRPN(self, tokens: List[str]) -> int:
-        stack = []
-        for item in tokens:
-            if item not in {"+", "-", "*", "/"}:
-                stack.append(item)
-            else:
-                first_num, second_num = stack.pop(), stack.pop()
-                stack.append(int(eval(f'{second_num} {item} {first_num}')))
-        return int(stack.pop())
-            
+        st = []
+        for t in tokens:
+            st.append(t)
+            # print(st)            
+            if st[-1] in ["+", "-", "*", "/"]:
+                ops = st.pop()
+                num1 = int(st.pop())
+                num2 = int(st.pop())
+                # print(num1, num2)
+                if ops == "+":
+                    result = str(num1 + num2)
+                elif ops == "-":
+                    result = str(num2 - num1)
+                elif ops == "*":
+                    result = str(num2 * num1)
+                elif ops == "/":
+                    result = str(num2 // num1 + 1) if num2%num1 != 0 and num2//num1 < 0 else str(num2 // num1)
+                st.append(result)
+                
+        return int(st[-1])
         

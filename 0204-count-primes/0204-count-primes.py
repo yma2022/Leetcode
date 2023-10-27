@@ -1,14 +1,13 @@
 class Solution:
     def countPrimes(self, n: int) -> int:
-        if n <= 2:
+        if n < 2:
             return 0
+        dp = [True] * n
+        dp[0] = False
+        dp[1] = False
         
-        numbers = [False, False] + [True] * (n - 2)
-        
-        for p in range(2, int(sqrt(n)) + 1):
-            if numbers[p]:
-                for multiple in range(p * p, n, p):
-                    numbers[multiple] = False
-                    
-        return sum(numbers)
-        
+        for i in range(2, int(sqrt(n)) + 1):
+            if dp[i]:
+                for j in range(i*i, n, i):
+                    dp[j] = False
+        return sum(dp)

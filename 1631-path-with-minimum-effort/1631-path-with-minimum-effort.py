@@ -1,22 +1,16 @@
 class Solution:
     def minimumEffortPath(self, heights: List[List[int]]) -> int:
-        def isPath(effort: int) -> bool:
-            seen, dq = {(0, 0)}, deque([(0, 0)])
-            while dq:
-                x, y = dq.popleft()
-                if (x, y) == (len(heights) - 1, len(heights[0]) - 1):
-                    return True
-                for r, c in (x, y + 1), (x, y - 1), (x + 1, y), (x - 1, y):
-                    if len(heights) > r >= 0 <= c < len(heights[0]) and abs(heights[r][c] - heights[x][y]) <= effort and (r, c) not in seen:
-                        seen.add((r, c))
-                        dq.append((r, c))
-            return False            
-        
-        lo, hi = 0, 10 ** 6
-        while lo < hi:
-            effort = lo + hi >> 1
-            if isPath(effort):
-                hi = effort
-            else:
-                lo = effort + 1
-        return lo
+        m, n = map(len, (heights, heights[0]))
+        efforts = [[math.inf] * n for _ in range(m)]
+        efforts[0][0] = 0
+        heap = [(0, 0, 0)]
+        while heap:
+            effort, x, y = heapq.heappop(heap)
+            if (x, y) == (m - 1, n - 1):
+                return effort
+            for r, c in (x, y + 1), (x, y - 1), (x + 1, y), (x - 1, y):
+                if m > r >= 0 <= c < n:
+                    next_effort = max(effort, abs(heights[r][c] - heights[x][y]))
+                    if efforts[r][c] > next_effort:
+                        efforts[r][c] = next_effort
+                        heapq.heappush(heap, (next_effort, r, c))

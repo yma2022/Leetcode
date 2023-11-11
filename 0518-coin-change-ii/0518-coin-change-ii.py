@@ -5,9 +5,9 @@ class Solution:
         dp[0] = 1
         
         for i in range(n - 1, -1, -1):
-            print(dp)
+            # print(dp)
             for j in range(coins[i], amount + 1):
                 dp[j] += dp[j - coins[i]]
                 
         return dp[amount]
-        
+                

@@ -1,8 +1,6 @@
 class Solution:
     def reorganizeString(self, s: str) -> str:
         ans = []
-        # Min heap ordered by character counts, so we will use
-        # negative values for count
         pq = [(-count, char) for char, count in Counter(s).items()]
         heapify(pq)
 
@@ -21,4 +19,5 @@ class Solution:
                 heappush(pq, (count_first, char_first))
 
         return ''.join(ans)
+        
         

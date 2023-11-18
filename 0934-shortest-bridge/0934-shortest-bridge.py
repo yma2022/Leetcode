@@ -1,38 +1,40 @@
 class Solution:
-    def shortestBridge(self, A: List[List[int]]) -> int:
-        rows, cols = len(A), len(A[0])
-        dirs = [[0,1],[0,-1],[1,0],[-1,0]]
-        island1 = deque()
+    def shortestBridge(self, grid: List[List[int]]) -> int:
+        q = deque()
+        rows, cols = len(grid), len(grid[0])
         def dfs(x, y):
-            if A[x][y] == 0:
+            nonlocal q
+            if grid[x][y] == 2:
                 return
-            A[x][y] = 2
-            island1.append([x, y])
-            for d in dirs:
-                nx = x + d[0]
-                ny = y + d[1]
-                if 0 <= nx < rows and 0 <= ny < cols:
-                    if A[nx][ny] == 1:                        
-                        dfs(nx, ny)
-        first_x, first_y = 0, 0            
+            grid[x][y] = 2
+            q.append((x,y,0))
+            for dx, dy in [[0,1],[0,-1],[1,0],[-1,0]]:
+                nx, ny = x+dx, y+dy
+                if nx<0 or nx>=rows or ny<0 or ny>=cols:
+                    continue
+                if grid[nx][ny] == 1:
+                    dfs(nx, ny)
+
+        first_x, first_y = None, None
         for i in range(rows):
             for j in range(cols):
-                if A[i][j] == 1:
-                    first_x, first_y = i, j
+                if grid[i][j] == 1:
+                    first_x, first_y = i , j
                     break
+                    
         dfs(first_x, first_y)
-        length = 0
-        # print(island1)
-        while island1:
-            for _ in range(len(island1)):
-                x,y=island1.popleft()
-                for d in dirs:
-                    nx,ny = x+d[0], y+d[1]
-                    if 0<=nx<rows and 0<=ny<cols and A[nx][ny]!=2:
-                        if A[nx][ny] == 0:
-                            A[nx][ny]=2
-                            island1.append([nx,ny])
-                        elif A[nx][ny] == 1:
-                            return length
-            length += 1
-        return length          
+
+        # print(seen, q)
+        while q:
+            x, y, d = q.popleft()
+            for dx, dy in [[0,1],[0,-1],[1,0],[-1,0]]:
+                nx, ny = x+dx, y+dy
+                if nx<0 or nx>=rows or ny<0 or ny>=cols:
+                    continue
+                if grid[nx][ny] == 2:
+                    continue
+                if grid[nx][ny] == 0:
+                    grid[nx][ny] = 2
+                    q.append((nx, ny, d+1))
+                if grid[nx][ny] == 1:
+                    return d

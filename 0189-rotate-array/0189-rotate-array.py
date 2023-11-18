@@ -3,15 +3,7 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        def reverse(arr, start, end):
-            while start < end:
-                arr[start], arr[end] = arr[end], arr[start]
-                start += 1
-                end -= 1
+        n = len(nums)
+        k = k % n
+        nums[:] = nums[n-k:] + nums[:n-k]
         
-        k = k%len(nums)
-        if k == 0:
-            return
-        nums.reverse()
-        reverse(nums, 0, k - 1)
-        reverse(nums, k, len(nums) - 1)

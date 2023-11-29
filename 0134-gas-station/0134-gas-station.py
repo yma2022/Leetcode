@@ -1,12 +1,10 @@
 class Solution:
     def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
-        total_gain = 0
+        total_gain = sum(gas) - sum(cost)
         curr_gain = 0
         answer = 0
         
         for i in range(len(gas)):
-            # gain[i] = gas[i] - cost[i]
-            total_gain += gas[i] - cost[i]
             curr_gain += gas[i] - cost[i]
 
             # If we meet a "valley", start over from the next station
@@ -16,4 +14,3 @@ class Solution:
                 answer = i + 1
         
         return answer if total_gain >= 0 else -1
-        

@@ -33,4 +33,3 @@ class Solution:
                         ans += d[ele[1]]
                         k -= 1
         return ans
-        

@@ -17,3 +17,4 @@ class Solution:
 
         ans = [dfs(x, y, set()) if x in g and y in g else -1 for x, y in queries]
         return ans
+        

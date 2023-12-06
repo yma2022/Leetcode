@@ -17,4 +17,4 @@ class Solution:
                 dfs(i)
 
         return ans if len(ans) == N else []
-                
+        

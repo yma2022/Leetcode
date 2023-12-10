@@ -1,56 +1,50 @@
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        WORD_KEY = '$'
         
+        # Define a DFS function to traverse the board and search for words
+        def dfs(x, y, root):
+            # Get the letter at the current position on the board
+            letter = board[x][y]
+            # Traverse the trie to the next node
+            cur = root[letter]
+            # Check if the node has a word in it
+            word = cur.pop('#', False)
+            if word:
+                # If a word is found, add it to the results list
+                res.append(word)
+            # Mark the current position on the board as visited
+            board[x][y] = '*'
+            # Recursively search in all four directions
+            for dirx, diry in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                curx, cury = x + dirx, y + diry
+                # Check if the next position is within the board and the next letter is in the trie
+                if 0 <= curx < m and 0 <= cury < n and board[curx][cury] in cur:
+                    dfs(curx, cury, cur)
+            # Restore the original value of the current position on the board
+            board[x][y] = letter
+            # If the current node has no children, remove it from the trie
+            if not cur:
+                root.pop(letter)
+                
+        # Build a trie data structure from the list of words
         trie = {}
         for word in words:
-            node = trie
+            cur = trie
             for letter in word:
-                # retrieve the next node; If not found, create a empty node.
-                node = node.setdefault(letter, {})
-            # mark the existence of a word in trie node
-            node[WORD_KEY] = word
+                cur = cur.setdefault(letter, {})
+            cur['#'] = word
+        print(trie)   
+        # Get the dimensions of the board
+        m, n = len(board), len(board[0])
+        # Initialize a list to store the results
+        res = []
         
-        rowNum = len(board)
-        colNum = len(board[0])
+        # Traverse the board and search for words
+        for i in range(m):
+            for j in range(n):
+                # Check if the current letter is in the trie
+                if board[i][j] in trie:
+                    dfs(i, j, trie)
         
-        matchedWords = []
-        
-        def backtracking(row, col, parent):    
-            
-            letter = board[row][col]
-            currNode = parent[letter]
-            
-            # check if we find a match of word
-            word_match = currNode.pop(WORD_KEY, False)
-            if word_match:
-                # also we removed the matched word to avoid duplicates,
-                #   as well as avoiding using set() for results.
-                matchedWords.append(word_match)
-            
-            # Before the EXPLORATION, mark the cell as visited 
-            board[row][col] = '#'
-            
-            # Explore the neighbors in 4 directions, i.e. up, right, down, left
-            for (rowOffset, colOffset) in [(-1, 0), (0, 1), (1, 0), (0, -1)]:
-                newRow, newCol = row + rowOffset, col + colOffset     
-                if newRow < 0 or newRow >= rowNum or newCol < 0 or newCol >= colNum:
-                    continue
-                if not board[newRow][newCol] in currNode:
-                    continue
-                backtracking(newRow, newCol, currNode)
-        
-            # End of EXPLORATION, we restore the cell
-            board[row][col] = letter
-        
-            # Optimization: incrementally remove the matched leaf node in Trie.
-            if not currNode:
-                parent.pop(letter)
-
-        for row in range(rowNum):
-            for col in range(colNum):
-                # starting from each of the cells
-                if board[row][col] in trie:
-                    backtracking(row, col, trie)
-        
-        return matchedWords    
+        # Return the list of results
+        return res  

@@ -32,7 +32,4 @@ class Solution:
                 for nei in neighbors:
                     q.append((nei, dist + 1))
         return 0
-                
-        
-        
         

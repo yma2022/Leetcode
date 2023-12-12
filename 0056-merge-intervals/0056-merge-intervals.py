@@ -9,4 +9,3 @@ class Solution:
                 res.pop()
             res.append(i)
         return res
-        

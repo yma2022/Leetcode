@@ -1,6 +1,6 @@
 class Solution:
     def permute(self, nums: List[int]) -> List[List[int]]:
-        def backtrack(curr, path, res, seen):
+        def backtrack(path, res, seen):
             if len(path) == len(nums):
                 res.append(path[:])
                 return
@@ -10,10 +10,10 @@ class Solution:
                     continue
                 path.append(nums[i])
                 seen.add(i)
-                backtrack(i+1, path, res, seen)
+                backtrack(path, res, seen)
                 seen.remove(i)
                 path.pop()
         res = []
         seen = set()
-        backtrack(0, [], res, seen)
+        backtrack([], res, seen)
         return res

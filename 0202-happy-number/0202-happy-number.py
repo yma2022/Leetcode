@@ -1,15 +1,15 @@
 class Solution:
     def isHappy(self, n: int) -> bool:
-        hashmap = []
-        while n not in hashmap:
-            hashmap.append(n)
-            num = 0
-            while n:
-                r = n % 10
-                num += r * r
-                n = n // 10
-            n = num
-            if n == 1:
-                return True
-        return False
+        happyNs = set()
+        
+        while True:
+            tmp = 0
+            for c in str(n):
+                tmp += int(c)**2
+            n = tmp
+            if n in happyNs:
+                break
+            happyNs.add(n)
+        print(n)   
+        return n == 1
         

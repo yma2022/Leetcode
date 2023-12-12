@@ -1,8 +1,8 @@
 class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
-        rows = [[0 for _ in range(9)] for _ in range(9)]
-        cols = [[0 for _ in range(9)] for _ in range(9)]
-        units = [[0 for _ in range(9)] for _ in range(9)]
+        rows = [set() for _ in range(9)]
+        cols = [set() for _ in range(9)]
+        units = [set() for _ in range(9)]
         
         for i in range(len(board)):
             for j in range(len(board[0])):
@@ -10,10 +10,9 @@ class Solution:
                     continue
                 num = int(board[i][j])
                 unit_idx = (i // 3) * 3 + j // 3
-                if rows[i][num - 1] > 0 or cols[j][num - 1] > 0 or units[unit_idx][num - 1] > 0:
+                if num in rows[i] or num in cols[j] or num in units[unit_idx]:
                     return False
-                rows[i][num - 1] = 1
-                cols[j][num - 1] = 1
-                units[unit_idx][num - 1] = 1
+                rows[i].add(num)
+                cols[j].add(num)
+                units[unit_idx].add(num)
         return True
-        

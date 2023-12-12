@@ -17,4 +17,3 @@ class Solution:
         for s in st:
             res += "/" + s
         return res if st else "/"
-        

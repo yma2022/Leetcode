@@ -1,19 +1,10 @@
 class Solution:
     def coinChange(self, coins: List[int], amount: int) -> int:
-        count = [-1] * (amount + 1)
-        count[0] = 0
+        dp = [float('inf')] * (amount + 1)
+        dp[0] = 0
         
-        for i in range(1, amount + 1):
-            if i < min(coins):
-                count[i] = -1
-                continue
-            for c in coins:
-                if i < c or count[i - c] == -1:
-                    continue
-                if count[i] == -1:
-                    count[i] = count[i-c] + 1
-                else:
-                    count[i] = min(count[i], count[i-c] + 1)
-        #print(count)     
-        return count[-1] 
+        for coin in coins:
+            for j in range(coin, amount + 1):
+                dp[j] = min(dp[j], dp[j - coin] + 1)
+        return dp[amount] if dp[amount] != float('inf') else -1
         

@@ -4,11 +4,11 @@ class Solution:
         m = len(needle)
         if n < m:
             return -1
-        for i in range(m-1, n):
-            if haystack[i] != needle[-1]:
+        for i in range(0, n-m+1):
+            if haystack[i] != needle[0]:
                 continue
-            if haystack[i+1-m:i+1] != needle:
+            if haystack[i:i+m] != needle:
                 continue
             else:
-                return i+1-m
+                return i
         return -1

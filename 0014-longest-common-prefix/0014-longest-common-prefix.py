@@ -4,9 +4,9 @@ class Solution:
         for i in range(1, len(strs)):
             if not prefix:
                 return ""
-            if len(strs[i]) < len(prefix):
-                prefix = prefix[:len(strs[i])]
-            for j in range(len(prefix)):
+            length = min(len(strs[i]), len(prefix))
+            prefix = prefix[:length]
+            for j in range(length):
                 if prefix[j] == strs[i][j]:
                     continue
                 else:

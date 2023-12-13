@@ -5,5 +5,6 @@ class Solution:
         """
         n = len(nums)
         k = k % n
+        print(k)
         nums[:] = nums[n-k:] + nums[:n-k]
         

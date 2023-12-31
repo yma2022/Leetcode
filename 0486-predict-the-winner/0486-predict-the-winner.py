@@ -9,7 +9,4 @@ class Solution:
             score_by_right = nums[right] - maxDiff(left, right - 1)
             return max(score_by_left, score_by_right)
         
-        return maxDiff(0, n - 1) >= 0
-            
-        
-        
+        return maxDiff(0, n - 1) >= 0 

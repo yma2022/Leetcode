@@ -1,14 +1,13 @@
 class Solution:
     def canConstruct(self, ransomNote: str, magazine: str) -> bool:
-        
-        hashmap = [0] * 26
-        for c in magazine:
-            hashmap[ord(c) - ord("a")] += 1
+        d = Counter(magazine)
         
         for c in ransomNote:
-            if hashmap[ord(c) - ord("a")] > 0:
-                hashmap[ord(c) - ord("a")] -= 1
-            else:
+            if c not in d:
                 return False
+            d[c] -= 1
+            if d[c] == 0:
+                del d[c]
+                
         return True
         

@@ -9,4 +9,3 @@ class Solution:
             else:
                 prefix[i] = prefix[i + 1] - 1
         return prefix.index(min(prefix))
-        

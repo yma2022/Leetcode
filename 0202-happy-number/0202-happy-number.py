@@ -10,6 +10,6 @@ class Solution:
             if n in happyNs:
                 break
             happyNs.add(n)
-        print(n)   
+        # print(n)   
         return n == 1
         

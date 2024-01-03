@@ -15,3 +15,4 @@ class Solution:
         return self.helper(left.left, right.right) and self.helper(left.right, right.left)
     def isSymmetric(self, root: Optional[TreeNode]) -> bool:
         return self.helper(root.left, root.right) if root else True
+        

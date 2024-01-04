@@ -13,5 +13,3 @@ class Solution:
         res = []
         backtrack(1, [], res)
         return res
-        
-        

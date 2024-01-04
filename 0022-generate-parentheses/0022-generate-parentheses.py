@@ -7,10 +7,10 @@ class Solution:
                 res.append(path)
                 return
             
-            backtrack(left-1, right, path+'(', res)
-            backtrack(left, right-1, path+')', res)
+            backtrack(left-1, right, path+"(", res)
+            backtrack(left, right-1, path+")", res)
             
         res = []
         backtrack(n, n, "", res)
-        return res
         
+        return res

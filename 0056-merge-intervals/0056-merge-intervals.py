@@ -4,13 +4,10 @@ class Solution:
         
         st = []
         for interval in intervals:
-            if not st or st[-1][1] < interval[0]:
-                st.append(interval)
-            else:
-                while st and st[-1][-1] >= interval[0]:
-                    temp = st.pop()
-                    interval = [min(temp[0], interval[0]), max(temp[1], interval[1])]
-                st.append(interval)
+            while st and st[-1][-1] >= interval[0]:
+                temp = st.pop()
+                interval = [min(temp[0], interval[0]), max(temp[1], interval[1])]
+            st.append(interval)
                 
         return st
         
